@@ -45,14 +45,23 @@ public class CompOutputFormatter {
                              long time) {
         StringBuilder sbuilder = new StringBuilder();
         if(compMethod == CompMethod.Naive)
-            sbuilder.append("# algorytm naiwny\n");
+            sbuilder.append("# naive algorithm\n");
         else
-            sbuilder.append("# algorytm ulepszony\n");
+            sbuilder.append("# better algorithm\n");
 
         if(msg != null)
             sbuilder.append("# " + msg + " \n");
 
-        sbuilder.append("# algorithm did not find any path\n");
+        if(edgedDisjointedPaths == null)
+            sbuilder.append("# algorithm did not find any path\n");
+        else if (edgedDisjointedPaths.first() != null && edgedDisjointedPaths.second() == null)
+            sbuilder.append("# alogrithm found only one path\n");
+        else if (edgedDisjointedPaths.first() == null && edgedDisjointedPaths.second() != null)
+            sbuilder.append("# alogrithm found only one path\n");
+        else
+            sbuilder.append("# algorithm found two paths\n");
+
+
         if(assessResult(edgedDisjointedPaths))
             sbuilder.append("S\n");
         else

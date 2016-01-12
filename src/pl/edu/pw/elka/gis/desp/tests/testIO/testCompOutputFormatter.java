@@ -35,7 +35,7 @@ public class testCompOutputFormatter {
     }
 
     public static void main(String[] args) {
-        Path fpath = randomPath(10), spath = null;
+        Path fpath = null, spath = randomPath(13);
         EdgedDisjointedPaths edgedDisjointedPaths = new EdgedDisjointedPaths(fpath, spath);
         CompOutputFormatter formatter = new CompOutputFormatter();
         String ouput = formatter.formatComp(CompMethod.Naive, edgedDisjointedPaths, 10);

@@ -36,10 +36,7 @@ public class Main {
         int dst = new Integer(args[1]);
         String algorithm = args[2];
         String filepath = args[3];
-        CompMethod compMethod = CompMethod.Naive;
-        if(algorithm.equalsIgnoreCase("U")) {
-            compMethod = CompMethod.Better;
-        }
+        CompMethod compMethod = algorithm.equalsIgnoreCase("U") ? CompMethod.Better : CompMethod.Naive;
 
         WeightedDiagraph weightedDiagraph = null;
         WeightedDiagraphReader weightedDiagraphReader = new WeightedDiagraphReader();
