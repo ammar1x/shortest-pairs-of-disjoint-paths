@@ -89,8 +89,8 @@ public class VerificationTests {
                 System.out.println("-------------------------------------------");
                 System.out.println("running test " + m.getName().substring("test".length()));
                 System.out.println();
-                m.invoke(null, 10, CompMethod.Naive);
                 m.invoke(null, 10, CompMethod.Better);
+                m.invoke(null, 10, CompMethod.Naive);
             }
         }
     }

@@ -3,6 +3,7 @@ package pl.edu.pw.elka.gis.desp.comp;
 import pl.edu.pw.elka.gis.desp.model.DirectedEdge;
 import pl.edu.pw.elka.gis.desp.model.WeightedDiagraph;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class KShortestDisjointBetter  implements KShortestDisjoint {
@@ -19,7 +20,7 @@ public class KShortestDisjointBetter  implements KShortestDisjoint {
     }
 
 
-    public void reverseAndNegatePath(WeightedDiagraph wg, Path p) {
+    private void reverseAndNegatePath(WeightedDiagraph wg, Path p) {
         for(DirectedEdge e: p.getEdges()) {
             wg.reverseAndNegateEdge(e);
         }
@@ -59,8 +60,28 @@ public class KShortestDisjointBetter  implements KShortestDisjoint {
     }
 
     private EdgedDisjointedPaths findTwoPaths(Path fpath, Path spath) {
-        // TODO find method to combine edges from two paths to create two distinct paths
-        return new EdgedDisjointedPaths(fpath, spath);
+        List<DirectedEdge> nedges1 = new ArrayList<DirectedEdge>();
+        List<DirectedEdge> nedges2 = new ArrayList<DirectedEdge>();
+        List<DirectedEdge> edges = fpath.getEdges();
+        int pivot = 0;
+        for (int i = 0; i < edges.size()-1; i++) {
+            DirectedEdge ed1 = edges.get(i);
+            DirectedEdge ed2 = edges.get(i+1);
+            nedges1.add(ed1);
+            if(ed1.getDst() != ed2.getSrc()) {
+                nedges1.addAll(spath.getEdges().subList(i+1, edges.size()));
+                pivot = i+1;
+                break;
+            }
+        }
+        if(pivot == 0) {
+            return new EdgedDisjointedPaths(fpath, spath);
+        } else {
+            nedges2.addAll(spath.getEdges().subList(0, pivot));
+            nedges2.addAll(fpath.getEdges().subList(pivot, edges.size()));
+        }
+
+        return new EdgedDisjointedPaths(new Path(nedges1), new Path(nedges2));
     }
 
 

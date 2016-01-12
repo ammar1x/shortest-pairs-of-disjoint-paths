@@ -92,4 +92,13 @@ public class Path {
             removeEdge(e);
         }
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+       for(DirectedEdge e: edges) {
+            sb.append(String.format("(%d, %d)", e.getSrc(), e.getDst()));
+       }
+        return sb.toString();
+    }
 }
