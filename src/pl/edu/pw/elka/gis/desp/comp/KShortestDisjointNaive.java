@@ -10,12 +10,14 @@ public class KShortestDisjointNaive implements KShortestDisjoint {
     private final int src;
     private final int dst;
     private EdgedDisjointedPaths paths;
+    ShortestPath sp;
 
 
     public KShortestDisjointNaive(WeightedDiagraph wdg, int src, int dst) {
         this.src = src;
         this.dst = dst;
         this.org = wdg;
+        sp = new BellmanFordSP(org, src);
     }
 
 
@@ -30,17 +32,16 @@ public class KShortestDisjointNaive implements KShortestDisjoint {
     public void run() {
         WeightedDiagraph clone = org.clone();
 
-        DijkstraSP dijkstraSP = new DijkstraSP(org, src);
-        dijkstraSP.run();
-        Path fpath = dijkstraSP.pathTo(dst);
+        sp.run();
+        Path fpath = sp.pathTo(dst);
 
         // remove the first path
 
         removePath(clone, fpath);
 
-        dijkstraSP.setDiagraph(clone);
-        dijkstraSP.run();
-        Path spath = dijkstraSP.pathTo(dst);
+        sp.setDiagraph(clone);
+        sp.run();
+        Path spath = sp.pathTo(dst);
 
         this.paths = new EdgedDisjointedPaths(fpath, spath);
     }

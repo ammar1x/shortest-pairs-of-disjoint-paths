@@ -1,6 +1,7 @@
 package pl.edu.pw.elka.gis.desp.comp;
 
 import pl.edu.pw.elka.gis.desp.model.DirectedEdge;
+import pl.edu.pw.elka.gis.desp.model.WeightedDiagraph;
 
 /**
  * An interface for the shortest path problem solver.
@@ -20,4 +21,9 @@ public interface ShortestPath {
      */
     Path pathTo(int dstNode);
 
+    /**
+     * Set the Diagraph for which the algorithm compute the shortest path.
+     * @param clone weighted diagraph object
+     */
+    void setDiagraph(WeightedDiagraph clone);
 }

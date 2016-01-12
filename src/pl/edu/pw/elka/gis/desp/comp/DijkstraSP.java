@@ -10,7 +10,7 @@ public class DijkstraSP implements ShortestPath {
     private WeightedDiagraph g;
     private final int src;
     private double[] distance;
-    private DirectedEdge[] prev;
+    private final DirectedEdge[] prev;
     private PriorityQueue<Node> pq;
 
     private class Node implements Comparable<Node> {
