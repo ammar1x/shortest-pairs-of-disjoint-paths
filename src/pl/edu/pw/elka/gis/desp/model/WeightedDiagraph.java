@@ -76,7 +76,7 @@ public class WeightedDiagraph implements Cloneable {
      * Remove directed edge from the graph.
      * @param directedEdge the edge to be removed
      */
-    private void removeEdge(DirectedEdge directedEdge) {
+    public void removeEdge(DirectedEdge directedEdge) {
         adjacencyList.get(directedEdge.getSrc()).remove(directedEdge);
         e--;
     }

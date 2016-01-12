@@ -42,9 +42,15 @@ public class Main {
         WeightedDiagraphReader weightedDiagraphReader = new WeightedDiagraphReader();
         weightedDiagraph = weightedDiagraphReader.read(filepath);
 
-        KShortestDisjoint algo = new KShortestDisjointNaive();
+        KShortestDisjoint algo = null;
+        if(compMethod == CompMethod.Naive)
+            algo = new KShortestDisjointNaive(weightedDiagraph, src, dst);
+        else
+            algo = new KShortestDisjointBetter(weightedDiagraph, src, dst);
+
+        algo.run();
         long start = System.currentTimeMillis();
-        EdgedDisjointedPaths paths = algo.run(weightedDiagraph, src, dst);
+        EdgedDisjointedPaths paths = algo.getPaths();
         long time = (System.currentTimeMillis() - start);
 
         CompOutputFormatter compOutputFormatter = new CompOutputFormatter();

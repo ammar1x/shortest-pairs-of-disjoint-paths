@@ -96,7 +96,7 @@ public class Generator {
         for (int i = 0; i < v; i++) {
             for (int j = 0; j < v; j++) {
                 if( i != j && (rand.nextDouble() > p))
-                    weightedDiagraph.addEdge(i, j, rand.nextDouble());
+                    weightedDiagraph.addEdge(i, j, -rand.nextDouble());
             }
         }
         return weightedDiagraph;

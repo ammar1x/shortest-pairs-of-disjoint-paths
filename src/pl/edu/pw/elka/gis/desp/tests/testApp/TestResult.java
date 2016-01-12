@@ -1,9 +1,6 @@
 package pl.edu.pw.elka.gis.desp.tests.testApp;
 
-import pl.edu.pw.elka.gis.desp.comp.CompMethod;
-import pl.edu.pw.elka.gis.desp.comp.EdgedDisjointedPaths;
-import pl.edu.pw.elka.gis.desp.comp.KShortestDisjointBetter;
-import pl.edu.pw.elka.gis.desp.comp.KShortestDisjointNaive;
+import pl.edu.pw.elka.gis.desp.comp.*;
 import pl.edu.pw.elka.gis.desp.model.WeightedDiagraph;
 
 public class TestResult {
@@ -18,11 +15,14 @@ public class TestResult {
     public static TestResult runTest(CompMethod compMethod, WeightedDiagraph wdg, int src, int dst) {
         long s = System.currentTimeMillis();
         EdgedDisjointedPaths paths = null;
+        KShortestDisjoint ksdj = null;
         if (compMethod == CompMethod.Naive) {
-            paths = new KShortestDisjointNaive().run(wdg, src, dst);
+             ksdj = new KShortestDisjointNaive(wdg, src, dst);
         } else {
-            paths = new KShortestDisjointBetter().run(wdg, src, dst);
+            ksdj = new KShortestDisjointBetter(wdg, src, dst);
         }
+        ksdj.run();
+        paths = ksdj.getPaths();
         long time = System.currentTimeMillis() - s;
         return new TestResult(paths, time);
     }

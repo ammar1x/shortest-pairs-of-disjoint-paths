@@ -52,7 +52,7 @@ public class CompOutputFormatter {
         if(msg != null)
             sbuilder.append("# " + msg + " \n");
 
-        if(edgedDisjointedPaths == null)
+        if(edgedDisjointedPaths == null || (edgedDisjointedPaths.first() == null && edgedDisjointedPaths.second()==null))
             sbuilder.append("# algorithm did not find any path\n");
         else if (edgedDisjointedPaths.first() != null && edgedDisjointedPaths.second() == null)
             sbuilder.append("# alogrithm found only one path\n");

@@ -9,10 +9,13 @@ import pl.edu.pw.elka.gis.desp.model.WeightedDiagraph;
 public interface KShortestDisjoint {
     /**
      * Run the algorithm for given ingredients.
-     * @param weightedDiagraph the weighted diagraph
-     * @param src the src node
-     * @param dst the dst node
-     * @return EdgeDisjointPaths object
      */
-    public EdgedDisjointedPaths run(WeightedDiagraph weightedDiagraph, int src, int dst);
+    public void run();
+
+    /**
+     * Return calculated paths.
+     * @return two edge-disjoint paths
+     */
+    public EdgedDisjointedPaths getPaths();
+
 }

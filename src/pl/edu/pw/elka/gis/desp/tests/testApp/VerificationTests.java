@@ -23,7 +23,7 @@ public class VerificationTests {
 
     public static void testTrivialGraph(int v, CompMethod compMethod) {
         WeightedDiagraph weightedDiagraph = Generator.trivial();
-        TestResult tr = TestResult.runTest(compMethod, weightedDiagraph, 1, 2);
+        TestResult tr = TestResult.runTest(compMethod, weightedDiagraph, 0, 0);
         System.out.println(of.formatComp(compMethod, tr.paths, tr.time));
     }
 
@@ -65,6 +65,9 @@ public class VerificationTests {
     }
 
     public static void main(String[] args) throws Exception {
+        System.out.println("************************************");
+        System.out.println("*  running verification tests      *");
+        System.out.println("************************************");
         runTests();
     }
 
