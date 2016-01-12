@@ -2,6 +2,7 @@ package pl.edu.pw.elka.gis.desp.comp;
 
 import pl.edu.pw.elka.gis.desp.model.DirectedEdge;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,6 +37,17 @@ public class Path {
     }
 
     /**
+     * Remove given edge from this path.
+     * @param e directed edge
+     */
+    public void removeEdge(DirectedEdge e) {
+        if(edges.contains(e)) {
+            edges.remove(e);
+            distance -= e.getWeight();
+        }
+    }
+
+    /**
      * Return the distance of the path.
      * @return the distance of the path
      */
@@ -52,4 +64,32 @@ public class Path {
     }
 
 
+    /**
+     * Return a list of common edges.
+     * @param other other path
+     */
+    public List<DirectedEdge> getCommonEdges(Path other) {
+        List<DirectedEdge> edgesToRemove = new ArrayList<DirectedEdge>();
+        for (int i = 0; i < this.edges.size(); i++) {
+            DirectedEdge fed = this.edges.get(i);
+            for (int j = 0; j < other.edges.size(); j++) {
+                DirectedEdge sed = other.edges.get(j);
+                if(fed.equalIgnoreDirection(other.edges.get(j))) {
+                    edgesToRemove.add(fed);
+                    edgesToRemove.add(sed);
+                }
+            }
+        }
+        return edgesToRemove;
+    }
+
+    /**
+     * Remove given edges from this path
+     * @param edges to be removed
+     */
+    public void removeEdges(List<DirectedEdge> edges) {
+        for(DirectedEdge e: edges) {
+            removeEdge(e);
+        }
+    }
 }

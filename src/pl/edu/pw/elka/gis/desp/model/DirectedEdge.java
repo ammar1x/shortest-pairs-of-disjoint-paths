@@ -79,4 +79,16 @@ public class DirectedEdge {
         return String.format("%d - %d %f", src, dst, weight);
     }
 
+    /**
+     * Return if two directed edges are equal ignoring the direction.
+     * @param o direct edge to compare to
+     * @return true if two edges are equal ignoring direction, otherwise false
+     */
+    public boolean equalIgnoreDirection(DirectedEdge o) {
+        if(this.src == o.src && this.dst == o.dst)
+            return true;
+        if(this.src == o.dst && this.dst == o.src)
+            return true;
+        return false;
+    }
 }

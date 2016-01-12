@@ -106,6 +106,15 @@ public class WeightedDiagraph implements Cloneable {
         return we;
     }
 
+    /**
+     * Reverse the direction of the edge.
+     * @param ed the edge to be reversed.
+     */
+    public void reverseAndNegateEdge(DirectedEdge ed) {
+        removeEdge(ed);
+        addEdge(ed.getDst(), ed.getSrc(), -ed.getWeight());
+    }
+
     @Override
     public String toString() {
 
