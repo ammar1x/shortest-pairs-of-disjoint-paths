@@ -3,7 +3,6 @@ package pl.edu.pw.elka.gis.desp.comp;
 import pl.edu.pw.elka.gis.desp.model.DirectedEdge;
 import pl.edu.pw.elka.gis.desp.model.WeightedDiagraph;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class KShortestDisjointBetter  implements KShortestDisjoint {
@@ -33,19 +32,26 @@ public class KShortestDisjointBetter  implements KShortestDisjoint {
         // 1. run Dijkstra
         sp1.run();
         Path fpath = sp1.pathTo(dst);
+        if(fpath == null) {
+            this.paths = null;
+            return;
+        }
         // 2. Reverse path
         reverseAndNegatePath(wdg, fpath);
 
         // 3. Run the second algorithm
         sp2.run();
         Path spath = sp2.pathTo(dst);
-
+        if(spath == null) {
+            this.paths = new EdgedDisjointedPaths(fpath, null);
+            return;
+        }
         // 4. Remove common edges
         List<DirectedEdge> commonEdges = fpath.getCommonEdges(spath);
         fpath.removeEdges(commonEdges);
         spath.removeEdges(commonEdges);
 
-        // 5. odwroc kierunek lukow pierwszej sciezki
+        // 5. Again, reverse the first path
         reverseAndNegatePath(wdg, fpath);
 
         // 6. find some paths with given nodes
@@ -60,6 +66,6 @@ public class KShortestDisjointBetter  implements KShortestDisjoint {
 
     @Override
     public EdgedDisjointedPaths getPaths() {
-        return null;
+        return paths;
     }
 }

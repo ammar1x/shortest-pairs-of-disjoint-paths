@@ -45,11 +45,42 @@ public class VerificationTests {
         System.out.println(of.formatComp(compMethod, tr.paths, tr.time));
     }
 
-    public static void testNegativeWeightsGraph(int v, CompMethod compMethod) {
+    public static void stestNegativeWeightsGraph(int v, CompMethod compMethod) {
         WeightedDiagraph weightedDiagraph = Generator.negativeWeights(v);
         TestResult tr = TestResult.runTest(compMethod, weightedDiagraph, 0, (v - 1));
         System.out.println(of.formatComp(compMethod, tr.paths, tr.time));
     }
+
+    public static void testSpecialCase1(int v, CompMethod compMethod) {
+        // Naive should fail, better should find two edge disjoint paths
+        // nasz przyklad 1
+        WeightedDiagraph weightedDiagraph = new WeightedDiagraph(5);
+        weightedDiagraph.addEdge(1, 2, 3);
+        weightedDiagraph.addEdge(1, 3, 1);
+        weightedDiagraph.addEdge(3, 2, 1);
+        weightedDiagraph.addEdge(2, 4, 1);
+        weightedDiagraph.addEdge(3, 4, 3);
+        TestResult tr = TestResult.runTest(compMethod, weightedDiagraph, 1, 4);
+        System.out.println(of.formatComp(compMethod, tr.paths, tr.time));
+    }
+
+
+
+    public static void testSpecialCase2(int v, CompMethod compMethod) {
+        // Naive & better both should find two edge-disjoint paths
+
+        WeightedDiagraph weightedDiagraph = new WeightedDiagraph(6);
+        weightedDiagraph.addEdge(1, 2, 3);
+        weightedDiagraph.addEdge(1, 3, 1);
+        weightedDiagraph.addEdge(3, 2, 1);
+        weightedDiagraph.addEdge(2, 4, 1);
+        weightedDiagraph.addEdge(2, 5, 2);
+        weightedDiagraph.addEdge(5, 3, 4);
+        weightedDiagraph.addEdge(5, 4, 3);
+        TestResult tr = TestResult.runTest(compMethod, weightedDiagraph, 1, 4);
+        System.out.println(of.formatComp(compMethod, tr.paths, tr.time));
+    }
+
 
     public static void runTests(Object... args) throws Exception {
         Method[] ms = VerificationTests.class.getMethods();

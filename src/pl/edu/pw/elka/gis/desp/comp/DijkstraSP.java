@@ -48,6 +48,10 @@ public class DijkstraSP implements ShortestPath {
         prev = new DirectedEdge[g.getV()];
     }
 
+    /**
+     * Set diagraph for this algorithm
+     * @param g new Diagraph
+     */
     public void setDiagraph(WeightedDiagraph g) {
         this.g = g;
     }

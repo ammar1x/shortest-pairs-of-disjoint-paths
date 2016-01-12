@@ -13,7 +13,7 @@ public class WeightedDiagraph implements Cloneable {
 
     final private int v;
     private int e;
-    private List<List<DirectedEdge>> adjacencyList = new ArrayList<List<DirectedEdge>>();
+    private List<DirectedEdge>[] adjacencyList;
 
     /**
      * Create an empty diagraph with V nodes.
@@ -21,8 +21,9 @@ public class WeightedDiagraph implements Cloneable {
     public WeightedDiagraph(int v) {
         this.v = v;
         this.e = 0;
+        adjacencyList = (List<DirectedEdge>[]) new List[v];
         for (int i = 0; i < this.v; i++) {
-            adjacencyList.add(new ArrayList<DirectedEdge>());
+            adjacencyList[i] = new ArrayList<DirectedEdge>();
         }
     }
 
@@ -47,7 +48,7 @@ public class WeightedDiagraph implements Cloneable {
      * @param edge the edge to be added
      */
     public void addEdge(DirectedEdge edge) {
-        adjacencyList.get(edge.getSrc()).add(edge);
+        adjacencyList[edge.getSrc()].add(edge);
         e++;
     }
 
@@ -77,7 +78,7 @@ public class WeightedDiagraph implements Cloneable {
      * @param directedEdge the edge to be removed
      */
     public void removeEdge(DirectedEdge directedEdge) {
-        adjacencyList.get(directedEdge.getSrc()).remove(directedEdge);
+        adjacencyList[directedEdge.getSrc()].remove(directedEdge);
         e--;
     }
 
@@ -87,7 +88,7 @@ public class WeightedDiagraph implements Cloneable {
      * @return nodes adjacent to node n
      */
     public List<DirectedEdge> adjacentTo(int n) {
-        return adjacencyList.get(n);
+        return adjacencyList[n];
     }
 
     private List<DirectedEdge> adjacentToCopy(int n) {
@@ -101,7 +102,7 @@ public class WeightedDiagraph implements Cloneable {
     public WeightedDiagraph clone() {
         WeightedDiagraph we = new WeightedDiagraph(this.v);
         for (int i = 0; i < this.getV(); i++) {
-            we.adjacencyList.add(adjacentToCopy(i));
+            we.adjacencyList[i] = adjacentToCopy(i);
         }
         return we;
     }
