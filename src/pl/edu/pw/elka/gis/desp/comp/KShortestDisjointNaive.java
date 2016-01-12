@@ -36,7 +36,6 @@ public class KShortestDisjointNaive implements KShortestDisjoint {
         Path fpath = sp.pathTo(dst);
 
         // remove the first path
-
         removePath(clone, fpath);
 
         sp.setDiagraph(clone);
