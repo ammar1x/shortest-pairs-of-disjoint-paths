@@ -48,4 +48,13 @@ public class EdgedDisjointedPaths {
     public double getTotalDistance() {
         return totalDistance;
     }
+
+    @Override
+    public String toString() {
+        return "EdgedDisjointedPaths{" +
+                "fpath=" + fpath +
+                ", spath=" + spath +
+                ", totalDistance=" + totalDistance +
+                '}';
+    }
 }

@@ -99,6 +99,7 @@ public class Path {
        for(DirectedEdge e: edges) {
             sb.append(String.format("(%d, %d)", e.getSrc(), e.getDst()));
        }
+        sb.append(" distance = " + distance);
         return sb.toString();
     }
 }

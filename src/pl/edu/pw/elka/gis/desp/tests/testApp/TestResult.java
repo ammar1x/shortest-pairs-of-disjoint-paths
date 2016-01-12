@@ -4,8 +4,8 @@ import pl.edu.pw.elka.gis.desp.comp.*;
 import pl.edu.pw.elka.gis.desp.model.WeightedDiagraph;
 
 public class TestResult {
-    EdgedDisjointedPaths paths;
-    long time;
+    public EdgedDisjointedPaths paths;
+    public long time;
 
     public TestResult(EdgedDisjointedPaths paths, long time) {
         this.paths = paths;

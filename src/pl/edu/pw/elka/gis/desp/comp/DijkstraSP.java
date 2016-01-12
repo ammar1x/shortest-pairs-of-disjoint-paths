@@ -105,7 +105,7 @@ public class DijkstraSP implements ShortestPath {
             s = prev[s].getSrc();
         }
         Collections.reverse(ledgs);
-        return new Path(distance[dstNode], ledgs);
+        return new Path(ledgs);
     }
 
 
