@@ -1,6 +1,7 @@
 package pl.edu.pw.elka.gis.desp.comp;
 
 
+import pl.edu.pw.elka.gis.desp.io.CompOutputFormatter;
 import pl.edu.pw.elka.gis.desp.model.DirectedEdge;
 import pl.edu.pw.elka.gis.desp.model.WeightedDiagraph;
 
@@ -10,14 +11,13 @@ public class KShortestDisjointNaive implements KShortestDisjoint {
     private final int src;
     private final int dst;
     private EdgedDisjointedPaths paths;
-    ShortestPath sp;
 
 
     public KShortestDisjointNaive(WeightedDiagraph wdg, int src, int dst) {
         this.src = src;
         this.dst = dst;
         this.org = wdg;
-        sp = new BellmanFordSP(org, src);
+
     }
 
 
@@ -30,13 +30,13 @@ public class KShortestDisjointNaive implements KShortestDisjoint {
 
     @Override
     public void run() {
-        WeightedDiagraph clone = org.clone();
+        ShortestPath sp = new DijkstraSP(org, src);
 
         sp.run();
         Path fpath = sp.pathTo(dst);
-
         // remove the first path
-        removePath(clone, fpath);
+        WeightedDiagraph clone = org.clone(fpath);
+       // removePath(clone, fpath);
 
         sp.setDiagraph(clone);
         sp.run();

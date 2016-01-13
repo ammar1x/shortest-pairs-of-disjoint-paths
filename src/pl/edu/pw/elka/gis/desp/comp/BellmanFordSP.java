@@ -10,7 +10,7 @@ import java.util.List;
 
 public class BellmanFordSP implements ShortestPath{
 
-    WeightedDiagraph wdg;
+    private WeightedDiagraph wdg;
     private final int src;
     private final DirectedEdge[] prev;
     private final double[] distance;

@@ -5,38 +5,95 @@ import pl.edu.pw.elka.gis.desp.app.Generator;
 import pl.edu.pw.elka.gis.desp.comp.CompMethod;
 import pl.edu.pw.elka.gis.desp.comp.KShortestDisjoint;
 import pl.edu.pw.elka.gis.desp.comp.KShortestDisjointNaive;
+import pl.edu.pw.elka.gis.desp.model.DirectedEdge;
 import pl.edu.pw.elka.gis.desp.model.WeightedDiagraph;
 import pl.edu.pw.elka.gis.desp.tests.testApp.TestResult;
+
+import java.util.Random;
 
 public class testPerformance {
 
 
+    /**
+     * Constant v, variable e
+     * @param v
+     */
+    static void testConstantN(int v, double changeRate, int iters) {
+        int size = v;
+        System.out.println("running test with constant n = " + v);
+        System.out.print("format: ");
+        System.out.println("V E BetterTime NaiveTime");
+        for(int i = 0; i < iters; size *= changeRate, i += 1) {
+            WeightedDiagraph g = Generator.empty(v);
+            addEdges(g, size);
+            TestResult tr1 = TestResult.runTest(CompMethod.Better, g, 1, v - 1);
+            TestResult tr = TestResult.runTest(CompMethod.Naive, g, 1, v - 1);
+            System.out.printf("%d %d %d %d\n", g.getV(), g.getE(), tr1.time, tr.time);
+        }
+    }
 
 
-    static void testRandomGraph(double density, CompMethod compMethod) {
-        int size = 100;
+    static void testConstantE(int e, int start, double changeRate, int iters) {
+        System.out.println("running test with constant e = " + e);
+        System.out.print("format: ");
+        System.out.println("V E BetterTime NaiveTime");
+        int size = start;
+        for(int i = 0; i < iters; size *= changeRate, i += 1) {
+            WeightedDiagraph g = Generator.empty(size);
+            addEdges(g, e);
+            TestResult tr1 = TestResult.runTest(CompMethod.Better, g, 1, size - 1);
+            TestResult tr = TestResult.runTest(CompMethod.Naive, g, 1, size - 1);
+            System.out.printf("%d %d %d %d\n", g.getV(), g.getE(), tr1.time, tr.time);
+        }
+    }
+
+    static void testRandomGraph(double p, int start, double changeRate, int iters) {
+        int v = start;
+        System.out.println("running test with erdos-renyi model p = " + p);
+        System.out.print("format: ");
+        System.out.println("V E BetterTime NaiveTime");
+        for(int i = 0; i < iters; v *= changeRate, i += 1) {
+            WeightedDiagraph g = Generator.erdosRenyi(v, p);
+            TestResult tr = TestResult.runTest(CompMethod.Naive, g, 1, v - 1);
+            TestResult tr1 = TestResult.runTest(CompMethod.Better, g, 1, v - 1);
+            System.out.printf("%d %d %d %d\n", g.getV(), g.getE(), tr1.time, tr.time);
+        }
+    }
+
+
+    public static void addEdges(WeightedDiagraph wg, int count) {
+        int k = 0;
+        Random rand = new Random();
+        for (int j = 0; j < wg.getV(); j++) {
+            for (int i = 0; i  < wg.getV(); i++) {
+                if(i != j && rand.nextBoolean()) {
+                    wg.addEdge(i, j, rand.nextDouble());
+                    k++;
+                    if(k >= count)
+                        return;
+                }
+
+            }
+        }
+
+    }
+    static void warmup(int ssize) {
+        int size = ssize;
         for(int i = 0; i < 10; size *= 2, i += 1) {
-            WeightedDiagraph g = Generator.erdosRenyi(size, density);
-            TestResult tr = TestResult.runTest(compMethod, g, 1, size - 1);
-            System.out.printf("%d %d %d\n", g.getV(), g.getE(), tr.time);
+            WeightedDiagraph g = Generator.empty(size);
+            addEdges(g, 1000*1000);
+            TestResult tr = TestResult.runTest(CompMethod.Better, g, 1, size - 1);
+            TestResult tr1 = TestResult.runTest(CompMethod.Naive, g, 1, size - 1);
         }
     }
 
 
     public static void main(String[] args) {
 
-        System.out.println("------------------");
-        System.out.println("density = " + 0.01);
-        testRandomGraph(0.01, CompMethod.Naive);
-        System.out.println("------------------");
-        System.out.println("density = " + 0.1);
-        testRandomGraph(0.02, CompMethod.Naive);
-        System.out.println("------------------");
-        System.out.println("density = " + 0.01);
-        testRandomGraph(0.01, CompMethod.Better);
-        System.out.println("------------------");
-        System.out.println("density = " + 0.1);
-        testRandomGraph(0.02, CompMethod.Better);
+        for(int i = 0; i < 5; i++) {
+            warmup(100);
+        }
+        testConstantE(1000*1000, 1000, 10, 5);
 
     }
 

@@ -1,5 +1,7 @@
 package pl.edu.pw.elka.gis.desp.model;
 
+import pl.edu.pw.elka.gis.desp.comp.Path;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -101,8 +103,26 @@ public class WeightedDiagraph implements Cloneable {
      */
     public WeightedDiagraph clone() {
         WeightedDiagraph we = new WeightedDiagraph(this.v);
+        we.e = this.e;
         for (int i = 0; i < this.getV(); i++) {
             we.adjacencyList[i] = adjacentToCopy(i);
+        }
+        return we;
+    }
+
+    /**
+     * Return a cloned object
+     * @return weighted diagraph object
+     */
+    public WeightedDiagraph clone(Path p) {
+        WeightedDiagraph we = new WeightedDiagraph(this.v);
+        we.e = this.e;
+        we.adjacencyList = this.adjacencyList;
+        if(p == null)
+            return we;
+        for(DirectedEdge e: p.getEdges()) {
+            we.adjacencyList[e.getSrc()] = this.adjacentToCopy(e.getSrc());
+            we.adjacencyList[e.getSrc()].remove(e);
         }
         return we;
     }

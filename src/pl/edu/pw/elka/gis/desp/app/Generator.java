@@ -31,7 +31,7 @@ public class Generator {
         WeightedDiagraph weightedDiagraph = new WeightedDiagraph(v);
         for (int i = 0; i < v; i++) {
             for (int j = 0; j < v; j++) {
-                if( i != j && (rand.nextDouble() > p))
+                if( i != j && (rand.nextDouble() < p))
                     weightedDiagraph.addEdge(i, j, rand.nextDouble());
             }
         }

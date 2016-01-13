@@ -28,6 +28,7 @@ public class testWeightedDiagraphReader {
         try {
             WeightedDiagraph weightedDiagraph = weightedDiagraphReader.read(filepath);
         } catch (WeightedDiagraphException e) {
+            System.out.println(e.getMessage());
             return true;
         } catch (FileNotFoundException e) {
             return false;

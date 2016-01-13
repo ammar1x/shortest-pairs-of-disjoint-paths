@@ -69,9 +69,15 @@ public class KShortestDisjointBetter  implements KShortestDisjoint {
             DirectedEdge ed2 = edges.get(i+1);
             nedges1.add(ed1);
             if(ed1.getDst() != ed2.getSrc()) {
-                nedges1.addAll(spath.getEdges().subList(i+1, edges.size()));
-                pivot = i+1;
-                break;
+                int n = spath.getEdges().size();
+                for (int j = 0; j < n; j++) {
+                    if(ed1.getDst() == spath.getEdges().get(j).getSrc()) {
+                        nedges1.addAll(spath.getEdges().subList(j, n));
+                        pivot = j;
+                        break;
+                    }
+                }
+
             }
         }
         if(pivot == 0) {

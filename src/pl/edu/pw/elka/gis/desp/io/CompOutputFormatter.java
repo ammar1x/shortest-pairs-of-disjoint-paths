@@ -55,9 +55,9 @@ public class CompOutputFormatter {
         if(edgedDisjointedPaths == null || (edgedDisjointedPaths.first() == null && edgedDisjointedPaths.second()==null))
             sbuilder.append("# algorithm did not find any path\n");
         else if (edgedDisjointedPaths.first() != null && edgedDisjointedPaths.second() == null)
-            sbuilder.append("# alogrithm found only one path\n");
+            sbuilder.append("# algorithm found only one path\n");
         else if (edgedDisjointedPaths.first() == null && edgedDisjointedPaths.second() != null)
-            sbuilder.append("# alogrithm found only one path\n");
+            sbuilder.append("# algorithm found only one path\n");
         else
             sbuilder.append("# algorithm found two paths\n");
 

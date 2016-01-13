@@ -84,8 +84,9 @@ public class DijkstraSP implements ShortestPath {
     private void relaxEdge(DirectedEdge edge) {
         int v = edge.getSrc();
         int w = edge.getDst();
-        if(distance[w] > distance[v] + edge.getWeight()) {
-            distance[w] = distance[v] + edge.getWeight();
+        double dd = distance[v] + edge.getWeight();
+        if(distance[w] > dd) {
+            distance[w] = dd;
             prev[w] = edge;
             Node nw = new Node(w);
             if(!pq.contains(nw))
@@ -105,7 +106,7 @@ public class DijkstraSP implements ShortestPath {
             s = prev[s].getSrc();
         }
         Collections.reverse(ledgs);
-        return new Path(ledgs);
+        return new Path( ledgs);
     }
 
 
