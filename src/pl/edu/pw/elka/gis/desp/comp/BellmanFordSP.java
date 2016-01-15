@@ -15,7 +15,7 @@ public class BellmanFordSP implements ShortestPath{
     private final DirectedEdge[] prev;
     private final double[] distance;
     /**
-     * Create & initialize Bellman Ford Shortest path algorithm
+     * Create &lt; initialize Bellman Ford Shortest path algorithm
      * @param g input graph
      * @param src the src node
      */

@@ -20,7 +20,7 @@ public class Main {
 
     public static void main(String[] args)  {
         try {
-            run(new String[]{"1", "2", "N", "dataset/parsing/example1"});
+            run(args);
         }  catch (WeightedDiagraphException e) {
             System.out.println("error: " + e.getMessage());
         } catch (FileNotFoundException e) {

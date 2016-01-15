@@ -37,7 +37,7 @@ public class DijkstraSP implements ShortestPath {
     }
 
     /**
-     * Create & initialize Dijkstra Shortest path algorithm
+     * Create &lt; initialize Dijkstra Shortest path algorithm
      * @param g input graph
      * @param src the src node
      */

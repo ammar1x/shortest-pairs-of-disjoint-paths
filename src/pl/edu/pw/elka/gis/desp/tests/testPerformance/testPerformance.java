@@ -26,9 +26,9 @@ public class testPerformance {
         for(int i = 0; i < iters; size *= changeRate, i += 1) {
             WeightedDiagraph g = Generator.empty(v);
             addEdges(g, size);
-            TestResult tr1 = TestResult.runTest(CompMethod.Better, g, 1, v - 1);
-            TestResult tr = TestResult.runTest(CompMethod.Naive, g, 1, v - 1);
-            System.out.printf("%d %d %d %d\n", g.getV(), g.getE(), tr1.time, tr.time);
+            TestResult tr1 = TestResult.profile(CompMethod.Better, g, 1, v - 1, 2);
+            TestResult tr = TestResult.profile(CompMethod.Naive, g, 1, v - 1, 2);
+            System.out.printf("%d %d %f %f\n", g.getV(), g.getE(), tr1.timed, tr.timed);
         }
     }
 
@@ -36,14 +36,14 @@ public class testPerformance {
     static void testConstantE(int e, int start, double changeRate, int iters) {
         System.out.println("running test with constant e = " + e);
         System.out.print("format: ");
-        System.out.println("V E BetterTime NaiveTime");
+        System.out.println("V BetterTime NaiveTime");
         int size = start;
         for(int i = 0; i < iters; size *= changeRate, i += 1) {
             WeightedDiagraph g = Generator.empty(size);
             addEdges(g, e);
-            TestResult tr1 = TestResult.runTest(CompMethod.Better, g, 1, size - 1);
-            TestResult tr = TestResult.runTest(CompMethod.Naive, g, 1, size - 1);
-            System.out.printf("%d %d %d %d\n", g.getV(), g.getE(), tr1.time, tr.time);
+            TestResult tr1 = TestResult.profile(CompMethod.Better, g, 1, size - 1, 1);
+            TestResult tr = TestResult.profile(CompMethod.Naive, g, 1, size - 1, 1);
+            System.out.printf("%d %f %f\n", g.getV(), tr1.timed, tr.timed);
         }
     }
 
@@ -54,9 +54,9 @@ public class testPerformance {
         System.out.println("V E BetterTime NaiveTime");
         for(int i = 0; i < iters; v *= changeRate, i += 1) {
             WeightedDiagraph g = Generator.erdosRenyi(v, p);
-            TestResult tr = TestResult.runTest(CompMethod.Naive, g, 1, v - 1);
-            TestResult tr1 = TestResult.runTest(CompMethod.Better, g, 1, v - 1);
-            System.out.printf("%d %d %d %d\n", g.getV(), g.getE(), tr1.time, tr.time);
+            TestResult tr = TestResult.profile(CompMethod.Naive, g, 1, v - 1, 2);
+            TestResult tr1 = TestResult.profile(CompMethod.Better, g, 1, v - 1, 2);
+            System.out.printf("%d %d %f %f\n", g.getV(), g.getE(), tr1.timed, tr.timed);
         }
     }
 
@@ -81,7 +81,7 @@ public class testPerformance {
         int size = ssize;
         for(int i = 0; i < 10; size *= 2, i += 1) {
             WeightedDiagraph g = Generator.empty(size);
-            addEdges(g, 1000*1000);
+            addEdges(g, 1000);
             TestResult tr = TestResult.runTest(CompMethod.Better, g, 1, size - 1);
             TestResult tr1 = TestResult.runTest(CompMethod.Naive, g, 1, size - 1);
         }
@@ -93,7 +93,7 @@ public class testPerformance {
         for(int i = 0; i < 5; i++) {
             warmup(100);
         }
-        testConstantE(1000*1000, 1000, 10, 5);
+        testConstantE(5000, 500, 2,  10);
 
     }
 
