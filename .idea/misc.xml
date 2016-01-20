@@ -5,7 +5,7 @@
   </component>
   <component name="IdProvider" IDEtalkID="FD4C4ABD031352CD7AFDB2DE1D8CD48B" />
   <component name="JavadocGenerationManager">
-    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/../doc" />
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/documentation" />
     <option name="OPTION_SCOPE" value="public" />
     <option name="OPTION_HIERARCHY" value="true" />
     <option name="OPTION_NAVIGATOR" value="true" />

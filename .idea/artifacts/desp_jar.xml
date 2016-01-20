@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="desp:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/desp_jar</output-path>
+    <root id="archive" name="desp.jar">
+      <element id="module-output" name="desp" />
+    </root>
+  </artifact>
+</component>

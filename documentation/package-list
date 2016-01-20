@@ -1,0 +1,9 @@
+pl.edu.pw.elka.gis.desp.app
+pl.edu.pw.elka.gis.desp.comp
+pl.edu.pw.elka.gis.desp.io
+pl.edu.pw.elka.gis.desp.model
+pl.edu.pw.elka.gis.desp.tests.testApp
+pl.edu.pw.elka.gis.desp.tests.testComp
+pl.edu.pw.elka.gis.desp.tests.testIO
+pl.edu.pw.elka.gis.desp.tests.testModel
+pl.edu.pw.elka.gis.desp.tests.testPerformance

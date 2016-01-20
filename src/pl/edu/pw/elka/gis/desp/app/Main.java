@@ -29,8 +29,6 @@ public class Main {
     }
 
 
-
-
     public static void run(String[] args) throws FileNotFoundException, WeightedDiagraphException {
         int src = new Integer(args[0]);
         int dst = new Integer(args[1]);
